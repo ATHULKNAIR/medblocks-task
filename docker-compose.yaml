@@ -23,7 +23,7 @@ services:
             POSTGRES_DB: hapi
             POSTGRES_PASSWORD: hapi
     web:
-        image: 'athulknair123/task:1.0'
+        image: 'athulknair123/medblock-task:1.0'
         ports: 
             - 3000:80
 
