@@ -42,7 +42,7 @@ function Edit(props) {
     return data;
   };
 
-  
+  var LastName = ""
   var Telecom = ""
   var Address = ""
   var City = ""
@@ -59,6 +59,11 @@ function Edit(props) {
       (response) => {
         const patient = response.data;
 
+        if(patient.name){
+          LastName = patient.name[0]?.family
+        }else{
+          LastName = ""
+        }
         if(patient.telecom){
           Telecom = patient.telecom[0]?.value
         }else{
