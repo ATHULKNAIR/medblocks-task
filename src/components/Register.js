@@ -33,7 +33,7 @@ function Register(props) {
       ],
     };
 
-    if (state.gender && state.birthDate && state.fname) {
+    if (state.gender  && state.fname) {
       await fhir
       .post(`/Patient`, payload)
       .then((response) => {
@@ -54,7 +54,15 @@ function Register(props) {
         
         window.location.href = "/list"
       } else {
-        alert("Please fill the fields");
+        if(!state.fname){
+          alert("First Name not added");   
+        }else if(!state.gender){
+          alert("Gender not added");   
+        }else if(state.telecom && state.telecom.length!==10){
+          alert('Phone number should be 10 digits')
+        }else{
+          alert("Error Occured while registering..")
+        }
       }
   };
 
@@ -101,7 +109,7 @@ function Register(props) {
               style={{ fontSize: "20px", fontWeight: "bold" }}
               htmlFor="fname"
             >
-              First Name{" "}
+              First Name *{" "}
             </label>
           </div>
 
@@ -176,7 +184,7 @@ function Register(props) {
               style={{ fontSize: "20px", fontWeight: "bold" }}
               htmlFor="gender"
             >
-              Gender{" "}
+              Gender *{" "}
             </div>
           </div>
           <div style={{ marginLeft: "0px", marginTop: "10px" }}>
@@ -267,7 +275,7 @@ function Register(props) {
                 paddingLeft: "20px",
                 fontFamily: "sans-serif",
               }}
-              required
+           
             />
           </div>
         </div>
@@ -296,8 +304,7 @@ function Register(props) {
               placeholder="Enter Phone Number"
               value={state.telecom}
               name="telecom"
-              maxLength="10"
-              required
+              maxlength="10"
               onChange={handleChange}
               style={{
                 borderRadius: "7px",

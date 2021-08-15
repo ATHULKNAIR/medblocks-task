@@ -77,13 +77,15 @@ function Patient(props) {
               Gender :{" "}
               <span style={{ fontWeight: "700" }}>{patient?.gender}</span>
             </p>
+              {patient.birthDate &&
             <p style={{ marginTop: "-10px" }}>
               Date of Birth :{" "}
               <span style={{ fontWeight: "700" }}>{patient?.birthDate}</span>
             </p>
+            }
 
             <p style={{ marginTop: "-10px" }}>
-              {patient?.telecom[0]?.value && (
+              {patient?.telecom && patient?.telecom[0]?.value && (
                 <p>
                   Phone Number :{" "}
                   <span style={{ fontWeight: "700" }}>
@@ -102,9 +104,11 @@ function Patient(props) {
                     </span>
                   </p>
                 )}
-                <p style={{ marginTop: "-10px" }}>City : <span style={{ fontWeight: "700" }}>{patient.address[0].city}</span></p>
-                <p style={{ marginTop: "-10px" }}>State : <span style={{ fontWeight: "700" }}>{patient.address[0].state}</span></p>
-                <p style={{ marginTop: "-10px" }}>Postal Code : <span style={{ fontWeight: "700" }}>{patient.address[0].postalCode}</span></p>
+                {patient.address[0].city && <p style={{ marginTop: "-10px" }}>City : <span style={{ fontWeight: "700" }}>{patient.address[0].city}</span></p>}
+                {patient.address[0].state &&   <p style={{ marginTop: "-10px" }}>State : <span style={{ fontWeight: "700" }}>{patient.address[0].state}</span></p>}
+                {patient.address[0].postalCode && <p style={{ marginTop: "-10px" }}>Postal Code : <span style={{ fontWeight: "700" }}>{patient.address[0].postalCode}</span></p>}
+              
+                
               </div>
             )}
           </div>

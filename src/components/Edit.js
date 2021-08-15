@@ -42,6 +42,14 @@ function Edit(props) {
     return data;
   };
 
+  
+  var Telecom = ""
+  var Address = ""
+  var City = ""
+  var State = ""
+  var Postal = ""
+
+
   useEffect(() => {
     const getPatientDetail = async () => {
       let data = await fhir.get(`/Patient/${id}`);
@@ -50,16 +58,35 @@ function Edit(props) {
     getPatientDetail().then(
       (response) => {
         const patient = response.data;
+
+        if(patient.telecom){
+          Telecom = patient.telecom[0]?.value
+        }else{
+          Telecom = ""
+        }
+        if(patient.address){
+          Address = patient.address[0]?.line[0]
+          City = patient.address[0]?.city
+          State = patient.address[0]?.state
+          Postal = patient.address[0]?.postalCode
+        }else{
+          Address = ""
+          City = ""
+          State = ""
+          Postal = ""
+        }
+        console.log(patient.name[0].family)       
+       
         setstate({
-          fname: patient.name[0].given[0],
+          fname: patient.name[0]?.given[0] ,
           lname: patient.name[0].family,
           gender: patient.gender,
           birthDate: patient.birthDate,
-          telecom: patient.telecom[0].value,
-          address: patient.address[0].line[0],
-          city: patient.address[0].city,
-          State: patient.address[0].state,
-          postalCode: patient.address[0].postalCode,
+          telecom: Telecom ,
+          address:Address ,
+          city: City  ,
+          State: State  ,
+          postalCode: Postal  ,
         });
         console.log(patient);
         setCheck(true);
@@ -118,7 +145,7 @@ function Edit(props) {
                 id="fname"
                 placeholder="Enter First Name"
                 name="fname"
-                value={state.fname}
+                value={state.fname }
                 onChange={handleChange}
                 style={{
                   borderRadius: "7px",
@@ -180,7 +207,7 @@ function Edit(props) {
                 id="lname"
                 placeholder="Enter Last Name"
                 name="lname"
-                value={state.lname}
+                value={state.lname }
                 onChange={handleChange}
                 style={{
                   borderRadius: "7px",
@@ -248,7 +275,7 @@ function Edit(props) {
               <input
                 type="date"
                 id="birthDate"
-                value={state.birthDate}
+                value={state.birthDate }
                 name="birthDate"
                 onChange={handleChange}
                 style={{
@@ -281,7 +308,7 @@ function Edit(props) {
               type="tel"
               id="telecom"
               placeholder="Enter Phone Number"
-              value={state.telecom}
+              value={state.telecom }
               name="telecom"
               minLength="10"
               required
@@ -314,7 +341,7 @@ function Edit(props) {
             <textarea
               id="address"
               placeholder="Enter your address"
-              value={state.address}
+              value={state.address }
               name="address"
               onChange={handleChange}
               style={{
@@ -352,7 +379,7 @@ function Edit(props) {
               type="text"
               id="city"
               placeholder="Enter your city"
-              value={state.city}
+              value={state.city }
               name="city"
               onChange={handleChange}
               style={{
@@ -385,7 +412,7 @@ function Edit(props) {
               type="text"
               id="State"
               placeholder="Enter your State"
-              value={state.State}
+              value={state.State }
               name="State"
               onChange={handleChange}
               style={{
@@ -417,7 +444,7 @@ function Edit(props) {
               type="text"
               id="postalCode"
               placeholder="Enter your Postal Code "
-              value={state.postalCode}
+              value={state.postalCode }
               name="postalCode"
               onChange={handleChange}
               style={{

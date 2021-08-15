@@ -101,7 +101,7 @@ function List() {
                       }}
                     >
                       <Link to={`/list/${list?.resource.id}`}>
-                        {`${list?.resource.name[0].given} ${list?.resource?.name[0].family}`}
+                        {`${list?.resource.name[0].given}`} {list.resource?.name[0].family && <span>{list.resource?.name[0].family}</span>}
                       </Link>
                     </div>
                     <div
@@ -111,10 +111,10 @@ function List() {
                         marginLeft: "350px",
                         marginTop: "-22px",
                       }}
-                    >{`${
-                      new Date().getFullYear() -
-                      list.resource.birthDate.split("-")[0]
-                    } years`}</div>
+                    >
+                      {list.resource?.birthDate ? <span>{`${new Date().getFullYear() - list.resource.birthDate?.split("-")[0]} years`}</span>:"--------"}
+                      
+                      </div>
                     <div
                       style={{
                         //   border: "2px solid black",
