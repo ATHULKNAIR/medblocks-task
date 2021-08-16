@@ -1,9 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 function Header({home,register,list,tree}) {
-
-    
-
     
     return (
         <div>
